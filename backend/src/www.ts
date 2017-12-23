@@ -5,6 +5,30 @@ import {NextFunction, Request, Response} from "express";
 // Expressのインスタンス取得
 const app = express();
 
+import * as bodyParser from "body-parser";
+import * as jwt from "jsonwebtoken";
+import {Key} from "./key";
+
+// JSON変換
+app.use(bodyParser.json());
+
+//トークン認証
+app.post("/auth",(req: Request, res: Response, next: NextFunction) => {
+	const token= req.body.token;
+	try {
+		jwt.verify(
+			token,
+			Key.PUBLIC,
+			{algorithms: ["RS256"]});
+	} catch (e) {
+		next({message:"@@@@ トークン不正"+e.message});
+		return;
+	}
+	res
+	    .set("Content-Type","application/json; charset=utf-8")
+	    .json({message:"@@@@ トークン正常"});
+	});
+
 // ----------------------------------------
 //  リクエストの処理
 // app.メソッド名(”パス名”,処理関数(リクエスト,レスポンス,次の処理))
