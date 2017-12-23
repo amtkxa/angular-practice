@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",                        //コンパイル出力するJavaScriptのバージョン指定
+    "module": "commonjs",                   //モジュール形式の指定
+    "outDir": "./dist",                     //コンパイル出力先のフォルダ
+    "typeRoots": ["./node_modules/@types"], //型情報ファイルの保存場所指定
+    "sourceMap": true
+  },
+  "noImplicitAny": true,                    //型チェックを行う
+  "include": [
+    "src/**/*.ts"                           //ソースコードはsrcフォルダの配下に配置
+  ],
+  "exclude": [
+    "node_modules"                          //npmからダウンロードしたファイルはコンパイル対象外
+  ]
+}
